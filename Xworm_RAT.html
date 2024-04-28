@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kali Linux Terminal</title>
+
+    <style>
+
+        /* Your CSS styles can go here */
+
+        body {
+
+            font-family: 'Courier New', Courier, monospace;
+
+            background-color: #000;
+
+            color: #40e0d0; /* Turquoise color */
+
+            margin: 0;
+
+            padding: 0;
+
+        }
+
+
+
+        #terminal {
+
+            width: 80%;
+
+            margin: 50px auto;
+
+            background-color: #000;
+
+            border: 2px solid #40e0d0; /* Turquoise color */
+
+            padding: 20px;
+
+            white-space: pre-wrap;
+
+            overflow-x: auto;
+
+            box-shadow: 0 0 10px rgba(64, 224, 208, 0.5); /* Turquoise color */
+
+        }
+
+    </style>
+
+</head>
+
+
+
+<body>
+
+    <div id="terminal">
+
+        <p>Welcome to Xworm</p>
+
+        <p>Phishing URL: <a href="https://accounts.google.com/servicelogin?hl=en-gb" style="color: #40e0d0;">https://accounts.google.com/servicelogin?hl=en-gb</a></p>
+
+        <p>Type 'help' for a list of commands.</p>
+
+        <span id="command-line">root@kali:~# </span><input type="text" id="command-input" autofocus>
+
+    </div>
+
+
+
+    <script>
+
+        // Your JavaScript code can go here
+
+        const terminal = document.getElementById('terminal');
+
+        const commandLine = document.getElementById('command-line');
+
+        const commandInput = document.getElementById('command-input');
+
+
+
+        commandInput.addEventListener('keydown', function(e) {
+
+            if (e.key === 'Enter') {
+
+                const command = this.value.trim();
+
+                if (command !== '') {
+
+                    terminal.innerHTML += '<p>' + commandLine.textContent + command + '</p>';
+
+                    // Add your command processing logic here
+
+                    const output = processCommand(command);
+
+                    terminal.innerHTML += output;
+
+                    this.value = '';
+
+                    terminal.scrollTop = terminal.scrollHeight;
+
+                }
+
+            }
+
+        });
+
+
+
+        function processCommand(command) {
+
+            // This function processes the command entered by the user
+
+            if (command.toLowerCase() === 'victim') {
+
+                // Generate random number of rows between 5 and 7
+
+                const numVictims = Math.floor(Math.random() * 3) + 5;
+
+                let output = '';
+
+                const commonWords = ['john', 'mary', 'david', 'lisa', 'michael', 'sarah', 'james', 'emily', 'robert', 'jessica', 'dog', 'cat', 'bird', 'rabbit', 'tiger', 'lion', 'elephant', 'bear', 'snake', 'fish'];
+
+                const animals = ['dog', 'cat', 'rabbit', 'bird', 'tiger', 'lion', 'elephant', 'bear', 'snake', 'fish'];
+
+                for (let i = 0; i < numVictims; i++) {
+
+                    const ip = '186.' + Math.floor(Math.random() * 256) + '.' + Math.floor(Math.random() * 256) + '.' + Math.floor(Math.random() * 256);
+
+                    const randomName = Math.random() < 0.5 ? commonWords[Math.floor(Math.random() * commonWords.length)] : animals[Math.floor(Math.random() * animals.length)];
+
+                    const username = generateUsername(randomName);
+
+                    const password = generateRandomPassword();
+
+                    output += '<p>Victim IP found: ' + ip + '</p>';
+
+                    output += '<p>Username: ' + username + '</p>';
+
+                    output += '<p>Password: ' + password + '</p>';
+
+                }
+
+                return output;
+
+            } else {
+
+                // Default response for other commands
+
+                return '<p>Command not found: ' + command + '</p>';
+
+            }
+
+        }
+
+
+
+        // Function to generate a random password consisting of digits and letters
+
+        function generateRandomPassword() {
+
+            // Generate a password of length between 6 and 8 consisting of digits and letters
+
+            const passwordLength = Math.floor(Math.random() * 3) + 6; // Password length between 6 and 8 characters
+
+            let password = '';
+
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+            for (let i = 0; i < passwordLength; i++) {
+
+                password += characters.charAt(Math.floor(Math.random() * characters.length));
+
+            }
+
+            return password;
+
+        }
+
+
+
+        // Function to generate a username with extensive variety
+
+        function generateUsername(baseName) {
+
+            const variants = [];
+
+            const randomNumber = Math.floor(Math.random() * 1000);
+
+            const randomSuffix = Math.random() < 0.5 ? randomNumber : randomNumber.toString(16);
+
+            variants.push(baseName + randomSuffix);
+
+            variants.push(baseName + '_' + randomSuffix);
+
+            variants.push(baseName.charAt(0).toUpperCase() + baseName.slice(1) + randomSuffix);
+
+            variants.push(baseName.charAt(0).toUpperCase() + baseName.slice(1) + '_' + randomSuffix);
+
+            variants.push(baseName + Math.floor(Math.random() * 1000));
+
+            variants.push(baseName.charAt(0).toUpperCase() + baseName.slice(1) + Math.floor(Math.random() * 1000));
+
+            variants.push(baseName.charAt(0).toUpperCase() + baseName.slice(1) + '_' + Math.floor(Math.random() * 1000));
+
+
+
+            // Additional variations
+
+            for (let i = 0; i < 100; i++) {
+
+                let variant = baseName;
+
+                const randomNum = Math.floor(Math.random() * 7);
+
+                if (randomNum === 0) {
+
+                    variant = baseName + Math.floor(Math.random() * 100);
+
+                } else if (randomNum === 1) {
+
+                    variant = baseName.charAt(0).toUpperCase() + baseName.slice(1);
+
+                } else if (randomNum === 2) {
+
+                    variant = baseName.charAt(0).toUpperCase() + baseName.slice(1) + Math.floor(Math.random() * 100);
+
+                } else if (randomNum === 3) {
+
+                    variant = baseName + '_' + Math.floor(Math.random() * 100);
+
+                } else if (randomNum === 4) {
+
+                    variant = baseName.charAt(0).toUpperCase() + baseName.slice(1) + '_' + Math.floor(Math.random() * 100);
+
+                } else if (randomNum === 5) {
+
+                    variant = baseName.slice(0, Math.floor(Math.random() * baseName.length)) + Math.floor(Math.random() * 100);
+
+                } else {
+
+                    variant = baseName.slice(0, Math.floor(Math.random() * baseName.length)) + '_' + Math.floor(Math.random() * 100);
+
+                }
+
+                variants.push(variant);
+
+            }
+
+
+
+            return variants[Math.floor(Math.random() * variants.length)];
+
+        }
+
+    </script>
+
+</body>
+
+
+
+</html>
